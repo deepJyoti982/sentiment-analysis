@@ -21,9 +21,9 @@ middlewares = [
     sentimentValidator.sentimentAnalysis(),
     commonValidator.checkForErrors
 ]
-router.route('/sentiment-analysis')
-    .post(middlewares, sentimentController.userSentiment)
-    .all(methodNotAllowed)
+// router.route('/sentiment-analysis')
+//     .post(middlewares, sentimentController.userSentiment)
+//     .all(methodNotAllowed)
 
 
 
