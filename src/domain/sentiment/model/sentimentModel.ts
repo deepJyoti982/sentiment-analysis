@@ -1,7 +1,13 @@
 import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
 
 
 const sentimentSchema = new mongoose.Schema({
+    userId: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
     user_text: {
         type: String,
         required: true
@@ -9,10 +15,6 @@ const sentimentSchema = new mongoose.Schema({
     user_sentiment: {
         type: String,
         enum: ['Positive', 'Negative', 'Neutral']
-    },
-    file: {
-        type: Buffer,
-        required: true
     }
 }, { timestamps: true })
 

@@ -16,6 +16,7 @@ const methodNotAllowed = (req: Request, res: Response, next: NextFunction) => gl
 
 
 middlewares = [
+    commonValidator.validateFormData,
     userMiddleware.registerUser(),
     commonValidator.checkForErrors
 ]
@@ -25,6 +26,7 @@ router.route('/register-user')
 
 
 middlewares = [
+    commonValidator.validateFormData,
     userMiddleware.userLogin(),
     commonValidator.checkForErrors
 ]

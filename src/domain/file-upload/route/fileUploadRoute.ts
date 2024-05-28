@@ -1,12 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { SentimentController } from '../controller/sentimentController';
-import { SentimentValidator } from '../middleware/sentimentMiddleware';
+import { FileUploadController } from '../controller/fileUploadController';
+import { FileUploadValidator } from '../middleware/fileUploadMiddleware';
 import { validatorCls } from '../../../helper/commonMiddleware';
 
 
-/* Instance of Classes */
-const sentimentController = new SentimentController();
-const sentimentValidator = new SentimentValidator();
+/* Instances of Classes */
+const fileUploadController = new FileUploadController();
+const fileUploadMiddleware = new FileUploadValidator();
 const commonValidator = new validatorCls();
 
 
@@ -18,23 +18,20 @@ const methodNotAllowed = (req: Request, res: Response, next: NextFunction) => gl
 middlewares = [
     commonValidator.validateFormData,
     commonValidator.validateToken,
-    sentimentValidator.sentimentAnalysis(),
+    fileUploadMiddleware.fileUpload(),
     commonValidator.checkForErrors
 ]
-router.route('/sentiment-analysis')
-    .post(middlewares, sentimentController.userSentiment)
+router.route('/file-upload')
+    .post(middlewares, fileUploadController.uploadFile)
     .all(methodNotAllowed)
 
 
 middlewares = [
-    commonValidator.validateToken,
+    commonValidator.validateToken
 ]
-router.route('/get-sentiments')
-    .get(middlewares, sentimentController.getSentiment)
+router.route('/get-files')
+    .get(middlewares, fileUploadController.getFile)
     .all(methodNotAllowed)
 
 
-
-
-
-export { router as sentimentRouter };
+export { router as fileUploadRoute }
